@@ -23,23 +23,43 @@ class MyApp extends StatelessWidget {
         BlocProvider(
             create: (context) => DatabaseBloc()..add(RetrievePassword())),
       ],
-      child: BlocListener<DatabaseBloc, DatabaseState>(
-        listener: (context, state) {
-          if (state is IsSignedIn) route = Routes.informationPage;
-          
-        },
-        child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          title: 'Interview',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
-          builder: ExtendedNavigator(
-            navigatorKey: navigatorKey,
-            router: FlutterRoute(),
-            initialRoute: route,
-          ),
-        ),
+      child:
+          BlocConsumer<DatabaseBloc, DatabaseState>(listener: (context, state) {
+        if (state is IsSignedIn) route = Routes.informationPage;
+      }, builder: (context, state) {
+        if (state is IsSignedIn)
+          return Home(navigatorKey: navigatorKey, route: route);
+        else if (state is DatabaseError)
+          return  Home(navigatorKey: navigatorKey, route: route);
+        else
+          return MaterialApp(home: Scaffold(body: Center(child: CircularProgressIndicator())));
+      } ),
+    );
+  }
+}
+
+class Home extends StatelessWidget {
+  const Home({
+    Key key,
+    @required this.navigatorKey,
+    @required this.route,
+  }) : super(key: key);
+
+  final GlobalKey<NavigatorState> navigatorKey;
+  final String route;
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Interview',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      builder: ExtendedNavigator(
+        navigatorKey: navigatorKey,
+        router: FlutterRoute(),
+        initialRoute: route,
       ),
     );
   }

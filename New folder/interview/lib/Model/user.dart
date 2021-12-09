@@ -19,6 +19,6 @@ class User extends Equatable {
   User.fromOject(
     dynamic o,
   ) {
-    this.password = o["password"];
+    this.password = o;
   }
 }

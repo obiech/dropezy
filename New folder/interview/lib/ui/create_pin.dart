@@ -23,7 +23,7 @@ class _CreatePinState extends State<CreatePin> {
   StreamController<ErrorAnimationType>? errorController;
   bool hasError = false;
   String currentText = "";
-  bool isFullyFilled = false;
+  bool isFullyFilled = true;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final formKey = GlobalKey<FormState>();
 
@@ -159,7 +159,7 @@ class _CreatePinState extends State<CreatePin> {
                 left: false,
                   child: RoundedLoadingButton(
                       onPressed: () {
-                        if (isFullyFilled && formKey.currentState!.validate()) {
+                        if (isFullyFilled ) {
                           BlocProvider.of<DatabaseBloc>(context)
                             ..add(SavePassword(
                                 password: textEditingController.text.trim()));

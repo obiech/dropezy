@@ -7,9 +7,9 @@ class SMSsender implements OTPSender {
 
   @override
   void sendOTP({required String phoneNumber, required String otp}) {
-    if (phoneNumber.startsWith('0')) phoneNumber.replaceFirst('0', '');
+    if (phoneNumber.startsWith('0'))phoneNumber= phoneNumber.replaceFirst('0', '');
 
-    String address = ('+234') + phoneNumber.trim();
+    String address = ('+7') + phoneNumber.trim();
     try {
       sender
           .sendSms(new SmsMessage(address, 'Your OTP is : ' + otp.toString()));

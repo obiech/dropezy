@@ -46,7 +46,6 @@ class AuthenticationBloc
       else {
         emit(AuthenticationError(error: 'false'));
       }
-      emit(AuthenticationSuccess());
     } on GeneralException catch (err) {
       emit(AuthenticationError(error: err.toString()));
     } catch (error) {
