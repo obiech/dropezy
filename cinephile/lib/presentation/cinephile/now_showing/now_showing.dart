@@ -136,13 +136,9 @@ class _NowShowingState extends State<NowShowing> {
                     height: 50,
                   ),
                   Grid(movies: state.movies),
-                  Hero(
+                  const Hero(
                     tag: 'HeroID.make(HeroType.buttonNavBar)',
-                    // flightShuttleBuilder: (flightContext, animation,
-                    //         flightDirection, fromHeroContext, toHeroContext) =>
-                    //     _flightShuttleBuilderContainer(
-                    //         animation, flightDirection),
-                    child: const BackContainer(
+                    child: BackContainer(
                       height: 100,
                       color: Colors.black,
                       child: SizedBox.expand(),
@@ -157,25 +153,5 @@ class _NowShowingState extends State<NowShowing> {
         ),
       ),
     );
-  }
-
-  Widget _flightShuttleBuilderContainer(
-      Animation animation, HeroFlightDirection flightDirection) {
-    final isPop = flightDirection == HeroFlightDirection.pop;
-    return AnimatedBuilder(
-        animation: animation,
-        builder: (context, child) {
-          final value = isPop
-              ? Curves.ease.transform(animation.value)
-              : Curves.ease.transform(animation.value);
-          return Align(
-            alignment: Alignment.bottomCenter,
-            child: BackContainer(
-              color: Colors.black,
-              height: (0.7).defaultHeight() * value,
-              child: const SizedBox.expand(),
-            ),
-          );
-        });
   }
 }
