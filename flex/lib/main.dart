@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:dio_smart_retry/dio_smart_retry.dart';
 import 'package:flex/bloc/photo_bloc.dart';
 import 'package:flex/infrastruture/repo.dart';
 import 'package:flex/view/home.dart';
@@ -20,8 +21,19 @@ class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final Dio plugin = Dio();
+    plugin.interceptors.add(RetryInterceptor(
+        dio: plugin,
+        logPrint: print,
+        retries: 3,
+        retryDelays: const [
+          Duration(seconds: 1),
+          Duration(seconds: 2),
+          Duration(seconds: 3)
+        ]));
+
     return RepositoryProvider(
-      create: (context) => NasaApiImpl(DioClient(plugin: Dio())),
+      create: (context) => NasaApiImpl(DioClient(plugin: plugin)),
       child: BlocProvider(
         create: (context) => PhotoBloc(context.read<NasaApiImpl>())
           ..add(const PhotoEvent.retrievePhotos()),

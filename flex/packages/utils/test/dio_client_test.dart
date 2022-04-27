@@ -12,12 +12,8 @@ void main() {
     late Response response;
     late DioClient dioClient;
     setUp(() {
-      // dio.interceptors.add(MockInterceptor(dio: dio, retries: 3));
       dioClient = DioClient(plugin: dio);
       response = MockResponse();
-      // dio.interceptors.add(RetryInterceptor(dio: Dio()));
-      // when(() => dio.interceptors.add(MockInterceptor()))
-      //     .thenReturn(MockInterceptor());
       when(() => dio.get(any())).thenAnswer((invocation) async => response);
     });
     setUpAll(() {
@@ -39,21 +35,5 @@ void main() {
         expect(e, isA<AppException>());
       }
     });
-    // group('description', () {
-    //   setUp(() {
-    //     dioClient = DioClient(plugin: dio);
-    //     response = MockResponse();
-    //     when(() => dio.get(any())).thenAnswer((invocation) async => response);
-    //   });
-    //   test('', () {
-    //           when(() => response.statusCode).thenReturn(400);
-    //           try {
-    //     await dioClient.get('');
-
-    //           } catch (e) {
-
-    //           }
-    //   });
-    // });
   }));
 }

@@ -9,17 +9,7 @@ class DioClient extends ApiClient<Response> {
   @protected
   final Dio plugin;
 
-  DioClient({required this.plugin}) {
-    plugin.interceptors.add(RetryInterceptor(
-        dio: plugin,
-        logPrint: print,
-        retries: 3,
-        retryDelays: const [
-          Duration(seconds: 1),
-          Duration(seconds: 2),
-          Duration(seconds: 3)
-        ]));
-  }
+  DioClient({required this.plugin});
 
   @override
   Future<Response> get(
