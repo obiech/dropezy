@@ -29,12 +29,7 @@ void main() {
   group('PhotoBlocInitialized', () {
     setUp(() {
       repo = MockNasaApiImpl();
-      // photoBloc = PhotoBloc(repo);
-      // repo = MockNasaApi();
       hydratedStorage = MockStorage();
-      // when(() => hydratedStorage.write(any(), any()))
-      //     .thenAnswer((invocation) async => {});
-      // when(()=> repo.retrieveImage()).thenReturn(expected)
     });
     setUpAll(() {
       registerFallbackValue(MockStorage());
@@ -53,20 +48,7 @@ void main() {
               initialState.copyWith(status: Status.success, images: photoList)
             ],
         verify: (_) => verify((() => repo.retrieveImage())).called(1));
-
-    // blocTest<PhotoBloc, PhotoState>(
-    //     'emits successful status when repository fetches correct movies',
-    //     setUp: () {
-    //       when(() => repo.retrieveImage())
-    //           .thenAnswer((_) async => const Right(photoList));
-    //     },
-    //     build: build,
-    //     act: (bloc) => bloc.add(const PhotoEvent.retrievePhotos()),
-    //     expect: () =>
-    //         [PhotoState(status: Status.loading, error: null, images: []),
-    //         PhotoState(status: Status.success, error: null, images: [Photo(1), Photo(2)])],
-    //     verify: (_) => verify((() => repo.retrieveImage())).called(1));
-
+        
     blocTest<PhotoBloc, PhotoState>(
         'emits loading state when an event is added '
         'emits failed status when repository fetches wrong movies',

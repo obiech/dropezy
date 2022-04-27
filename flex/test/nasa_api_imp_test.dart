@@ -49,7 +49,6 @@ void main() {
       });
       test('handles unknown exception', () async {
         when(() => client.get(any())).thenThrow(Exception());
-        // try {} catch
         expect(await api.retrieveImage(), isA<Left<AppError, List<Photo>>>());
       });
     });
