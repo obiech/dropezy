@@ -33,6 +33,7 @@ dependencies:
   hydrated_bloc: ^8.1.0
   path_provider: ^2.0.8
   fake_async: ^1.2.0
+  dio_smart_retry: ^1.0.0
 
   utils:
     path: packages/utils

@@ -26,7 +26,7 @@ void main() {
       test('makes correct request to endpoint', () async {
         Response response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.data).thenReturn("[{'url':'url'}]");
+        when(() => response.data).thenReturn(data);
         when(() => client.get(any()))
             .thenAnswer((invocation) async => response);
         expect(await api.retrieveImage(), const Right([]));
@@ -37,7 +37,7 @@ void main() {
       test('returns correct value on successful request', () async {
         Response response = MockResponse();
         when(() => response.statusCode).thenReturn(200);
-        when(() => response.data).thenReturn('[]');
+        when(() => response.data).thenReturn(data);
         when(() => client.get(any()))
             .thenAnswer((invocation) async => response);
 
@@ -54,3 +54,6 @@ void main() {
     });
   });
 }
+
+const data =
+    "[{url: https://apod.nasa.gov/apod/image/1309/900px_201309110001HQ.jpg}]";

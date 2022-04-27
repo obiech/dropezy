@@ -18,15 +18,15 @@ void main() {
   late PhotoBloc bloc;
   late Storage hydratedStorage;
 
-  const List<Photo> photoList = [Photo('1'), Photo('2')];
+  const List<Photo> photoList = [Photo(''), Photo('')];
   PhotoState initialState = PhotoState.initial();
 
-  group('description', () {
+  group('Home View Page', () {
     hydratedStorage = MockStorage();
     repo = MockNasaApiImpl();
     PhotoBloc build() => HydratedBlocOverrides.runZoned(() => PhotoBloc(repo),
         storage: hydratedStorage);
-    group('description', () {
+    group('HomeView', () {
       testWidgets('renders HomeView', (tester) async {
         await tester.pumpApp(const HomeView(), photoBloc: build());
         expect(find.byType(HomeView), findsOneWidget);
