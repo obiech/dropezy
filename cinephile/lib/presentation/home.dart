@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:cinephile/application/buttom_nav_bar/buttomnavbar_cubit.dart';
 import 'package:cinephile/application/core/enums.dart';
 import 'package:cinephile/presentation/cinephile/favorite/favorite.dart';
@@ -31,7 +29,7 @@ class _HomeScreenState extends State<HomeScreen> {
             case NavBarItem.favourite:
               return const NowShowing();
             case NavBarItem.plus:
-              return Container();
+              return const MainPage();
             case NavBarItem.search:
               return Container();
             case NavBarItem.profile:

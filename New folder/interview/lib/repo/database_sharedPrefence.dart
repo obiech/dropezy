@@ -7,6 +7,7 @@ class SharedPreferenceDatabase implements Database {
 
   @override
   Future<void> savePassword(String password) async {
+    
    SharedPreferences _prefs = await SharedPreferences.getInstance();
     try {
       _prefs.setString('userPassword', password);

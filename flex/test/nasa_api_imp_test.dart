@@ -1,0 +1,57 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+import 'package:flex/domain/entity/error.dart';
+import 'package:flex/domain/entity/image.dart';
+import 'package:flex/infrastruture/repo.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
+import 'package:utils/utils.dart';
+
+import 'helpers/mocks.dart';
+
+void main() {
+  group('NasaApiImpl', () {
+    late ApiClient client;
+
+    late NasaApiImpl api;
+
+    const String endPoint =
+        'https://api.nasa.gov/planetary/apod?count=10&api_key=DEMO_KEY';
+
+    setUp(() {
+      client = MockDioClient();
+      api = NasaApiImpl(client);
+    });
+    group('retrieve photos', () {
+      test('makes correct request to endpoint', () async {
+        Response response = MockResponse();
+        when(() => response.statusCode).thenReturn(200);
+        when(() => response.data).thenReturn("[{'url':'url'}]");
+        when(() => client.get(any()))
+            .thenAnswer((invocation) async => response);
+        expect(await api.retrieveImage(), const Right([]));
+        verify(() => api.retrieveImage()).called(1);
+        verify(() => client.get(endPoint)).called(1);
+      });
+
+      test('returns correct value on successful request', () async {
+        Response response = MockResponse();
+        when(() => response.statusCode).thenReturn(200);
+        when(() => response.data).thenReturn('[]');
+        when(() => client.get(any()))
+            .thenAnswer((invocation) async => response);
+
+        expect(await api.retrieveImage(), isA<Right<AppError, List<Photo>>>());
+      });
+      test('returns correct value on AppException', () async {
+        when(() => client.get(any())).thenThrow(const AppException(code: 500));
+        expect(await api.retrieveImage(), isA<Left<AppError, List<Photo>>>());
+      });
+      test('handles unknown exception', () async {
+        when(() => client.get(any())).thenThrow(Exception());
+        // try {} catch
+        expect(await api.retrieveImage(), isA<Left<AppError, List<Photo>>>());
+      });
+    });
+  });
+}
