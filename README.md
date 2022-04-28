@@ -8,6 +8,7 @@ A new Flutter project.
 
 
 The project was split into packages in order to maintain explicit dependencies for each package with clear boundaries that enforce the single responsibility principle.
+
 Normally I would have my domain and infrastruture layer on different packages outside lib. Due to the small size of this project I felt this wasn't necessary. Nonetheless the util layer was seperated out as a stand alone package.
 
 Advantages:
@@ -41,7 +42,7 @@ Feature Layer
 
 This layer contains all of the application-specific features and use cases. Each feature generally consists of some UI and business logic. Features should generally be independent of other features so that they can easily be added/removed without impacting the rest of the codebase. Within each feature, the state of the feature along with any business logic is managed by blocs. Blocs interact with zero or more repositories. Blocs react to events and emit states which trigger changes in the UI. Widgets within each feature should generally only depend on the corresponding bloc and render UI based on the current state. The UI can notify the bloc of user input via events.
 
-Hydrated bloc was used as a plugin to implement the business logic. The key advantage of this is because Hydrated bloc caches the application states hence implmenting task number 
+Hydrated bloc was used as a plugin to implement the business logic. The key advantage of this is that Hydrated bloc stores locally the application states hence implementing the optionally task number 2
 
 utils layer
 
