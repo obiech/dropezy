@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flex/domain/entity/error.dart';
 import 'package:flex/domain/entity/image.dart';
-import 'package:flex/infrastruture/photo_model.dart';
 import 'package:flex/infrastruture/repo.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -15,10 +14,6 @@ void main() {
     late ApiClient client;
 
     late NasaApiImpl api;
-
-    const String endPoint =
-        'https://api.nasa.gov/planetary/apod?count=10&api_key=DEMO_KEY';
-
     setUp(() {
       client = MockDioClient();
       api = NasaApiImpl(client);
