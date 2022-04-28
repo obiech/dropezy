@@ -10,8 +10,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:mocktail/mocktail.dart';
 
-import 'helpers/mocks.dart';
-import 'helpers/pump_app.dart';
+import '../helpers/mocks.dart';
+import '../helpers/pump_app.dart';
 
 void main() {
   late NasaApi repo;
@@ -29,7 +29,7 @@ void main() {
     group('HomeView', () {
       testWidgets('renders HomeView', (tester) async {
         await tester.pumpApp(const HomeView(), photoBloc: build());
-        expect(find.byType(HomeView), findsOneWidget);
+        expect(find.byKey(const Key('title')), findsOneWidget);
       });
     });
 

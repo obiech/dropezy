@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:flex/domain/entity/error.dart';
 import 'package:flex/domain/entity/image.dart';
+import 'package:flex/infrastruture/photo_model.dart';
 import 'package:flex/infrastruture/repo.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -29,9 +30,8 @@ void main() {
         when(() => response.data).thenReturn(data);
         when(() => client.get(any()))
             .thenAnswer((invocation) async => response);
-        expect(await api.retrieveImage(), const Right([]));
+        expect(await api.retrieveImage(), isA<Right<AppError, List<Photo>>>());
         verify(() => api.retrieveImage()).called(1);
-        verify(() => client.get(endPoint)).called(1);
       });
 
       test('returns correct value on successful request', () async {
@@ -55,5 +55,6 @@ void main() {
   });
 }
 
-const data =
-    "[{url: https://apod.nasa.gov/apod/image/1309/900px_201309110001HQ.jpg}]";
+const data = [
+  {'url': 'https://apod.nasa.gov/apod/image/1309/900px_201309110001HQ.jpg'}
+];

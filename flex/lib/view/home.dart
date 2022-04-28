@@ -1,4 +1,5 @@
 import 'package:flex/bloc/photo_bloc.dart';
+import 'package:flex/view/preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,12 +15,13 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        backgroundColor: Colors.black,
         appBar: AppBar(
-          title: const Text('Nasa Images'),
+          title: const Text('Nasa Images', key: Key('title')),
           centerTitle: true,
         ),
         body: RefreshIndicator(
-          color: Colors.black,
+          color: Colors.white,
           onRefresh: () async {
             context.read<PhotoBloc>().add(const PhotoEvent.retrievePhotos());
             Future.delayed(const Duration(seconds: 3));
@@ -39,17 +41,28 @@ class _HomeViewState extends State<HomeView> {
               return ListView.separated(
                 itemCount: state.images.length,
                 separatorBuilder: (context, index) {
-                  return const Divider();
+                  return const Divider(
+                    color: Colors.white,
+                  );
                 },
                 itemBuilder: (context, index) {
-                  return Container(
-                      height: MediaQuery.of(context).size.height / 5,
-                      width: MediaQuery.of(context).size.width / 2,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                            fit: BoxFit.contain,
-                            image: NetworkImage(state.images[index].url)),
-                      ));
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          (MaterialPageRoute(builder: (context) {
+                            return Preview(photo: state.images[index]);
+                          })));
+                    },
+                    child: Container(
+                        height: MediaQuery.of(context).size.height / 5,
+                        width: MediaQuery.of(context).size.width / 2,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              fit: BoxFit.contain,
+                              image: NetworkImage(state.images[index].url)),
+                        )),
+                  );
                 },
               );
             },

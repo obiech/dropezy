@@ -44,3 +44,6 @@ Hydrated bloc was used as a plugin to implement the business logic. The key adva
 utils layer
 
 Contains helper classes used by the application. Test for this package can be found under the util folder.
+
+
+smart_retry_dio was used to implement retrying of failed api request

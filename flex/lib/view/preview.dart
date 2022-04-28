@@ -12,10 +12,20 @@ class Preview extends StatefulWidget {
 class _PreviewState extends State<Preview> {
   @override
   Widget build(BuildContext context) {
-    return Center(
-        child: Container(
-            decoration: BoxDecoration(
-                image:
-                    DecorationImage(image: NetworkImage(widget.photo.url)))));
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+          leading: IconButton(
+              onPressed: () => Navigator.pop(context),
+              icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white))),
+      body: Center(
+          child: Container(
+              key: const Key('network_image_for_preview'),
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: NetworkImage(
+                widget.photo.url,
+              ))))),
+    );
   }
 }
